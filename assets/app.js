@@ -54,11 +54,28 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ── Mobile burger → smooth jump menu (simple) ────── */
+  /* ── Mobile burger → accessible dropdown menu ─────── */
   const burger = document.getElementById('burger');
-  if (burger) {
-    burger.addEventListener('click', function () {
-      document.getElementById('contato').scrollIntoView({ behavior: 'smooth' });
+  if (burger && nav) {
+    const closeMenu = function () {
+      nav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    };
+    burger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const open = nav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Close after tapping any link in the menu
+    nav.querySelectorAll('.nav-links a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
+    });
+    // Close on outside click or Escape
+    document.addEventListener('click', function (e) {
+      if (nav.classList.contains('open') && !nav.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
     });
   }
 
