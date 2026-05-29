@@ -245,6 +245,9 @@ section { position: relative; }
 .fc-3 { bottom: 9%; left: -8%; animation-delay: 2.2s; }
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 
+/* Desktop: chips wrapper is transparent — chips remain absolutely positioned */
+.hero-chips { position: absolute; inset: 0; pointer-events: none; }
+
 .stat-badge {
   position: absolute; bottom: 18px; right: -6%;
   background: var(--ink); color: #fff; border-radius: 18px;
@@ -903,10 +906,46 @@ section { position: relative; }
   .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
   .hero-trust { margin-top: 26px; gap: 12px; }
 
-  /* Decorative photo accents off — avoid clutter & horizontal overflow */
-  .float-chip { display: none; }
-  .stat-badge { right: 4px; bottom: 10px; padding: 13px 16px; }
+  /* Hero photo column: stack photo + chips vertically, centered */
+  .hero-photo-col { flex-direction: column; align-items: center; gap: 18px; }
+
+  /* Chips wrapper: leave absolute flow, become a static 2×2 grid below photo */
+  .hero-chips {
+    position: static;
+    pointer-events: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+  }
+
+  /* Each chip: static, no float animation, constrained width */
+  .float-chip {
+    position: static;
+    animation: none;
+    font-size: 0.82rem;
+    padding: 10px 13px;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .float-chip .ic { width: 26px; height: 26px; font-size: 0.72rem; }
+  .float-chip small { font-size: 0.65rem; }
+
+  /* Stat badge: static inside the grid, dark card style preserved */
+  .stat-badge {
+    position: static;
+    animation: none;
+    border-radius: 14px;
+    padding: 12px 14px;
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
   .stat-badge .n { font-size: 1.6rem; }
+  .stat-badge .l { max-width: none; margin-top: 0; }
 
   /* Metrics → single column */
   .metrics { grid-template-columns: 1fr; }
@@ -921,9 +960,15 @@ section { position: relative; }
   .traj-head { margin-bottom: 40px; }
   .traj-bridge { padding: 24px 22px; font-size: 1.04rem; margin-top: 32px; }
 
-  /* Projects */
+  /* Projects — mockup containers */
   .projects { gap: 22px; margin-top: 40px; }
   .pj-highlights li { font-size: 0.92rem; }
+  .pj-media { min-height: 260px; padding: 24px; }
+  /* Browser mockups (MetaTask, TBC) scale to container width */
+  .mt-browser, .tbc-browser { max-width: 100%; }
+  /* Phone mockup (QBens): scale down so it never overflows the card */
+  .qb-phone { transform: scale(0.88); transform-origin: top center; margin-bottom: -58px; }
+  .pj-media { overflow: hidden; }
 
   /* Stack wall */
   .logo-wall { grid-template-columns: repeat(3, 1fr); }
