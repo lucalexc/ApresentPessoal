@@ -906,46 +906,45 @@ section { position: relative; }
   .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
   .hero-trust { margin-top: 26px; gap: 12px; }
 
-  /* Hero photo column: stack photo + chips vertically, centered */
-  .hero-photo-col { flex-direction: column; align-items: center; gap: 18px; }
+  /* Hero photo column keeps the photo centered; chips float over it */
+  .hero-photo-col { flex-direction: column; align-items: center; }
 
-  /* Chips wrapper: leave absolute flow, become a static 2×2 grid below photo */
+  /* Chips wrapper hugs the photo footprint (not the full column) so the
+     percentage offsets float the cards right around the photo, mirroring
+     the desktop overlap effect. */
   .hero-chips {
-    position: static;
-    pointer-events: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    width: 100%;
-    max-width: 380px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(340px, 80%);
+    aspect-ratio: 0.82;
+    pointer-events: none;
   }
 
-  /* Each chip: static, no float animation, constrained width */
+  /* Floating cards stay absolute + animated, just shrunk to fit. */
   .float-chip {
-    position: static;
-    animation: none;
-    font-size: 0.82rem;
-    padding: 10px 13px;
-    border-radius: 12px;
-    width: 100%;
-    box-sizing: border-box;
+    font-size: 0.6rem;
+    padding: 6px 9px;
+    gap: 7px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-m);
   }
-  .float-chip .ic { width: 26px; height: 26px; font-size: 0.72rem; }
-  .float-chip small { font-size: 0.65rem; }
+  .float-chip .ic { width: 22px; height: 22px; font-size: 0.64rem; border-radius: 6px; }
+  .float-chip small { font-size: 0.52rem; }
 
-  /* Stat badge: static inside the grid, dark card style preserved */
+  /* Strategic reposition: float around — never over — the face (top-center). */
+  .fc-1 { top: 3%;  left: -5%;  right: auto; bottom: auto; transform-origin: left center; }
+  .fc-2 { top: 40%; right: -6%; left: auto;  bottom: auto; transform-origin: right center; }
+  .fc-3 { bottom: 16%; left: -6%; right: auto; top: auto;  transform-origin: left center; }
+
   .stat-badge {
-    position: static;
-    animation: none;
-    border-radius: 14px;
-    padding: 12px 14px;
-    grid-column: span 2;
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    bottom: 2%; right: -4%; left: auto;
+    padding: 9px 12px; border-radius: 13px;
+    transform-origin: right bottom;
   }
-  .stat-badge .n { font-size: 1.6rem; }
-  .stat-badge .l { max-width: none; margin-top: 0; }
+  .stat-badge .n { font-size: 1.25rem; }
+  .stat-badge .l { font-size: 0.58rem; max-width: 11ch; margin-top: 3px; }
 
   /* Metrics → single column */
   .metrics { grid-template-columns: 1fr; }
@@ -994,7 +993,15 @@ section { position: relative; }
   .hero-cta .btn { width: 100%; }
   .btn-lg { padding: 15px 24px; font-size: 1rem; }
   .photo-frame { width: min(300px, 86%); }
-  .stat-badge { right: 0; }
+  /* Keep the floating-chips wrapper matched to the smaller photo footprint */
+  .hero-chips { width: min(300px, 86%); }
+  .float-chip { font-size: 0.56rem; padding: 5px 8px; }
+  .float-chip .ic { width: 20px; height: 20px; }
+  .fc-1 { top: 2%; left: -3%; }
+  .fc-2 { top: 42%; right: -4%; }
+  .fc-3 { bottom: 14%; left: -4%; }
+  .stat-badge { bottom: 2%; right: -2%; padding: 8px 11px; }
+  .stat-badge .n { font-size: 1.15rem; }
   .traj-bridge { padding: 20px 18px; }
   .diff-card { padding: 22px; }
   .quote-section::before { font-size: 8rem; }
