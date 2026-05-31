@@ -199,14 +199,6 @@ section { position: relative; }
 }
 .hero-trust .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--t-3); }
 .avail { display: inline-flex; align-items: center; gap: 7px; }
-.hero-objetivo {
-  display: inline-flex; align-items: center; gap: 9px; margin-top: 14px;
-  font-size: 0.86rem; color: var(--t-2);
-  background: var(--accent-tint); border: 1px solid var(--accent-tint-2);
-  padding: 9px 16px; border-radius: var(--r-pill);
-}
-.hero-objetivo svg { color: var(--accent); flex: 0 0 auto; }
-.hero-objetivo strong { color: var(--accent-dark); font-weight: 700; }
 .avail .pulse {
   width: 8px; height: 8px; border-radius: 50%; background: #16A34A; position: relative;
 }
